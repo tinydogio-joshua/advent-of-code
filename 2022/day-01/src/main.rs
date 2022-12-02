@@ -5,12 +5,12 @@ use std::fs;
 #[derive(Debug)]
 struct Elf {
     food: Vec<Food>,
-    total_calories: i32,
+    total_calories: u32,
 }
 
 #[derive(Debug)]
 struct Food {
-    calories: i32,
+    calories: u32,
 }
 
 fn create_elf(data: &str) -> Elf {
@@ -18,7 +18,7 @@ fn create_elf(data: &str) -> Elf {
         .split("\n")
         .map(|line: &str| Food { calories: line.parse().unwrap() })
         .collect();
-    let total_calories = food.iter().fold(0, |acc, item| acc + item.calories);
+    let total_calories = food.iter().map(|item| item.calories).sum::<u32>();
     Elf { food: food, total_calories: total_calories }
 }
 
@@ -39,7 +39,7 @@ fn process_data(data: String) {
     elves.sort_by(|a, b| b.total_calories.cmp(&a.total_calories));
 
     let max_calories = elves.iter().map(|elf| elf.total_calories).max().unwrap();
-    let sum_top_three = elves.iter().take(3).map(|elf| elf.total_calories).sum::<i32>();
+    let sum_top_three = elves.iter().take(3).map(|elf| elf.total_calories).sum::<u32>();
 
     println!("{:?}", elves);
     println!("===================================");
