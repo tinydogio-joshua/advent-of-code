@@ -41,6 +41,6 @@ fn process_data(data: String) {
     println!("{:?}", elves);
     println!("===================================");
     println!("Part A: {:?}", elves[0].total_calories);
-    println!("Part B: {:?}", elves[0].total_calories + elves[1].total_calories + elves[2].total_calories);
+    println!("Part B: {:?}", elves.iter().take(3).map(|elf| elf.total_calories).sum::<i32>());
 }
 
