@@ -38,9 +38,12 @@ fn process_data(data: String) {
  
     elves.sort_by(|a, b| b.total_calories.cmp(&a.total_calories));
 
+    let max_calories = elves.iter().map(|elf| elf.total_calories).max().unwrap();
+    let sum_top_three = elves.iter().take(3).map(|elf| elf.total_calories).sum::<i32>();
+
     println!("{:?}", elves);
     println!("===================================");
-    println!("Part A: {:?}", elves[0].total_calories);
-    println!("Part B: {:?}", elves.iter().take(3).map(|elf| elf.total_calories).sum::<i32>());
+    println!("Part A: {:?}", max_calories);
+    println!("Part B: {:?}", sum_top_three);
 }
 
