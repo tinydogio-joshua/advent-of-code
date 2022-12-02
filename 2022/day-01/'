@@ -1,0 +1,34 @@
+use std::fs;
+
+#[derive(Debug)]
+struct Elf {
+    food: Vec<Food>,
+}
+
+#[derive(Debug)]
+struct Food {
+    calories: u16,
+}
+
+fn create_elf(data: &str) -> Elf {
+    let food: Vec<Food> = data.split("\n").map(|line: String| -> Food { calories: line::parse<u16>().unwrap() });
+    println!("{:?}", food);
+    Elf { food: food }
+}
+
+fn main() {
+    match fs::read_to_string("./data") {
+        Ok(data) => process_data(data),
+        Err(_) => println!("Unable to Read File \"./data\"."),
+    }
+}
+
+fn process_data(data: String) {
+    println!("Data Loaded");
+    let elves = data.split("\n\n");
+    for (i, elf) in elves.enumerate() {
+        println!("{i}");
+        create_elf(elf);
+    }
+}
+
